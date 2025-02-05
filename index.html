@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Bucket List</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb, #a1c4fd, #c2e9fb);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #1b1616;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .bucket-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .bucket-list li {
+            background: rgba(245, 242, 242, 0.9);
+            margin: 10px auto;
+            padding: 15px;
+            width: 60%;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 18px;
+            transition: background 0.3s ease;
+            color: #333;
+        }
+        .bucket-list li:hover {
+            background: rgb(226, 219, 219);
+        }
+        .icon {
+            font-size: 30px;
+            cursor: pointer;
+            margin-right: 10px;
+            color: rgb(22, 19, 19);
+        }
+        .remove-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 4px 5px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .remove-btn:hover {
+            background: darkred;
+        }
+        .input-container {
+            margin: 20px 0;
+        }
+        #new-item {
+            padding: 10px;
+            width: 60%;
+            border: 2px solid #333;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        #add-button {
+            padding: 10px 15px;
+            font-size: 13px;
+            color: white;
+            background-color: #327e14;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        #add-button:hover {
+            background-color: #359dc7;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Personal Bucket List</h1>
+    </header>
+    
+    <main>
+        <div class="input-container">
+            <input type="text" id="new-item" placeholder="Enter a new bucket list item">
+            <button id="add-button" onclick="addItem()">Add</button>
+        </div>
+        
+        <ul class="bucket-list" id="bucket-list">
+            <li>
+                <span class="icon" onclick="toggleComplete(this)">•</span>
+                <span class="task">Learn Web Development </span>
+                <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+            </li>
+            <li>
+                <span class="icon" onclick="toggleComplete(this)">•</span>
+                <span class="task">Create a new web page </span>
+                <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+            </li>
+        </ul>
+    </main>
+    
+    <script>
+        function toggleComplete(element) {
+            if (element.innerHTML === "•") {
+                element.innerHTML = "✔️"; // Change bullet point to tick symbol
+            } else {
+                element.innerHTML = "•"; // Change back to bullet point
+            }
+        }
+
+        function addItem() {
+            let input = document.getElementById("new-item");
+            let text = input.value.trim();
+
+            if (text !== "") {
+                let list = document.getElementById("bucket-list");
+                let newItem = document.createElement("li");
+                newItem.innerHTML = `
+                    <span class="icon" onclick="toggleComplete(this)">•</span>
+                    <span class="task">${text}</span>
+                    <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+                `;
+                list.appendChild(newItem);
+                input.value = ""; // Clear input field after adding
+            }
+        }
+
+        function removeItem(button) {
+            let listItem = button.parentElement;
+            listItem.remove();
+        }
+    </script>
+</body>
+</html>
